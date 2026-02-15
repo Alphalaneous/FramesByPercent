@@ -100,6 +100,7 @@ class $modify(MyPauseLayer, PauseLayer) {
         auto btn = CCMenuItemSpriteExtra::create(spr, this, menu_selector(MyPauseLayer::onFpsPercent));
         if (auto menu = getChildByID("right-button-menu")) {
             menu->addChild(btn);
+            menu->updateLayout();
         }
     }
 

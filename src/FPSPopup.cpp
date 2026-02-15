@@ -21,7 +21,7 @@ bool FPSCell::init(FPSPopup* popup, int percent, int fps) {
     ignoreAnchorPointForPosition(false);
     setContentSize({270, 30});
 
-    auto background = CCScale9Sprite::create("square02b_001.png");
+    auto background = geode::NineSlice::create("square02b_001.png");
     background->setColor({0, 0, 0});
     background->setOpacity(127);
     background->setContentSize(getContentSize());
@@ -90,7 +90,7 @@ void FPSCell::deleteSelf(CCObject* sender) {
 
 FPSPopup* FPSPopup::create(int id) {
     auto ret = new FPSPopup();
-    if (ret->initAnchored(300.f, 280.f, id)) {
+    if (ret->init(id)) {
         ret->autorelease();
         return ret;
     }
@@ -99,7 +99,8 @@ FPSPopup* FPSPopup::create(int id) {
     return nullptr;
 }
 
-bool FPSPopup::setup(int id) {
+bool FPSPopup::init(int id) {
+    Popup::init(300.f, 280.f);
 
     setTitle("FPS by Percent");
     m_id = id;
@@ -112,7 +113,7 @@ bool FPSPopup::setup(int id) {
 
     m_buttonMenu->addChild(btn);
 
-    auto background = CCScale9Sprite::create("square02b_001.png");
+    auto background = geode::NineSlice::create("square02b_001.png");
     background->setColor({0, 0, 0});
     background->setOpacity(127);
     background->setContentSize({280, 210});
@@ -182,7 +183,7 @@ void FPSPopup::onCreateCell(CCObject* sender) {
 
 NumberPopup* NumberPopup::create(FPSPopup* popup, int percent) {
     auto ret = new NumberPopup();
-    if (ret->initAnchored(120.f, 110.f, popup, percent)) {
+    if (ret->init(popup, percent)) {
         ret->autorelease();
         return ret;
     }
@@ -191,7 +192,8 @@ NumberPopup* NumberPopup::create(FPSPopup* popup, int percent) {
     return nullptr;
 }
 
-bool NumberPopup::setup(FPSPopup* popup, int percent) {
+bool NumberPopup::init(FPSPopup* popup, int percent) {
+    Popup::init(120.f, 110.f);
     setTitle("Percent:");
     m_popup = popup;
     m_percent = percent;

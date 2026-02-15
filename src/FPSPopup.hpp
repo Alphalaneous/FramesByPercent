@@ -4,23 +4,23 @@
 
 using namespace geode::prelude;
 
-class FPSPopup : public geode::Popup<int> {
+class FPSPopup : public geode::Popup {
     geode::ScrollLayer* m_myScollLayer;
 public:
     int m_id;
     static FPSPopup* create(int id);
-    bool setup(int id) override;
+    bool init(int id);
     void refreshCells();
     void onCreateCell(CCObject* sender);
 };
 
-class NumberPopup : public geode::Popup<FPSPopup*, int> {
+class NumberPopup : public geode::Popup {
     FPSPopup* m_popup;
     bool m_isValid;
     int m_percent;
 public:
     static NumberPopup* create(FPSPopup* popup, int percent);
-    bool setup(FPSPopup* popup, int percent) override;
+    bool init(FPSPopup* popup, int percent);
     bool isValid(int percent);
     void onOkay(CCObject* sender);
 };
